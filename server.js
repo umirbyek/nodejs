@@ -93,10 +93,40 @@ const server=http.createServer((req,res)=>{
                 res.end(data)
         })
     }
+    else if(url.endsWith('.pdf')){
+        const parse=ulrLib.parse(url)
+        const filename=paht.basename(parse.pathname)
+
+        fs.readFile('./src/pdf/'+filename,(error,data)=>{
+                res.statusCode=200
+                res.setHeader("content-type","application/pdf")
+                res.end(data)
+        })
+    }
+    else if(url.endsWith('.css')){
+        const parse=ulrLib.parse(url)
+        const filename=paht.basename(parse.pathname)
+
+        fs.readFile('./src/css/'+filename,(error,data)=>{
+                res.statusCode=200
+                res.setHeader("content-type","text/css")
+                res.end(data)
+        })
+    }
+    else if(url.endsWith('.js')){
+        const parse=ulrLib.parse(url)
+        const filename=paht.basename(parse.pathname)
+
+        fs.readFile('./src/js/'+filename,(error,data)=>{
+                res.statusCode=200
+                res.setHeader("content-type","text/js")
+                res.end(data)
+        })
+    }
     else {
         res.statusCode=404;
         res.write('<h1> 404 not found <h1/>')
-console.log(url);
+        console.log(url);
         res.end()
     }
 
